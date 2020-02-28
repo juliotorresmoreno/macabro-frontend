@@ -39,7 +39,7 @@ export class SignUpFormData {
             lastname: '',
             username: '',
             password: '',
-            password_confirmation: ''
+            password_confirmation: '',
             error: ''
         }
     }
