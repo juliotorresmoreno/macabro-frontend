@@ -1,21 +1,27 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter, Switch } from 'react-router-dom';
-import Home from '../../pages/Home';
-import Auth from '../../pages/Auth';
-import './App.css';
-import store from '../../store';
-import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
-function App() {
+// @flow
+
+import React from 'react';
+
+interface AppProps {
+    logo: String;
+    pageURL: String;
+    name: String;
+}
+
+const App = (props: AppProps) => {
+    const logo = props.logo;
+    const pageURL = props.pageURL;
+    const name = props.name;
+
     return (
-        <Provider store={store}>
-            <BrowserRouter>
-                <Switch>
-                    <PrivateRoute path="/" component={Home} unauthorizedComponent={Auth} />
-                </Switch>
-            </BrowserRouter>
-        </Provider>
+        <span href={pageURL}>
+            <img className="deep-1" src={logo} style={{ height: 70 }} alt={name} />
+            <br />
+            <b className="text-gray-darker">
+                {name}
+            </b>
+        </span>
     );
 }
 

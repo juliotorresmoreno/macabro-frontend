@@ -1,6 +1,6 @@
 
 import React, { Fragment } from 'react';
-import { Form, FormGroup, Input, Label, Alert } from 'reactstrap';
+import { FormGroup, Input, Label, Alert } from 'reactstrap';
 import FormControl from './FormControl';
 import { emailValid, passwordValid } from '../Forms/validator';
 
@@ -46,7 +46,7 @@ export class SignInFormData {
 }
 
 interface AuthSignInFormProps {
-    control: FormControl<SignInFormData>
+    control: FormControl<SignInFormData>;
 }
 
 class AuthSignInForm extends React.PureComponent<AuthSignInFormProps> {
@@ -66,7 +66,6 @@ class AuthSignInForm extends React.PureComponent<AuthSignInFormProps> {
     render() {
         return (
             <Fragment>
-                <Form>
                     <FormGroup>
                         <Label for="email">Email</Label>
                         <Input
@@ -102,7 +101,6 @@ class AuthSignInForm extends React.PureComponent<AuthSignInFormProps> {
                                 {this.props.control.state.errors.error}
                             </Alert>
                         </Fragment> : false}
-                </Form>
             </Fragment>
         )
     }

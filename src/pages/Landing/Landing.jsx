@@ -1,47 +1,47 @@
 
+
+// @flow
+
 import React, { Fragment } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container } from 'reactstrap';
 import NavBarUnauthenticate from '../../components/NavBar/NavBarUnauthenticate';
 import Services from '../../components/Services';
-import { Media } from '../../components/Media';
-import { Product } from '../../components/Product';
+import Features from '../../components/Features';
+import Products from '../../components/Products';
 import Footer from '../../components/Footer';
 import Team from '../../components/Team';
 import Contact from '../../components/Contact';
 import Testimonials from '../../components/Testimonials';
 import Apps from '../../components/Apps';
+import store from '../../store';
+import { SignInOpenForm } from '../../actions/auth';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { DefaultState } from '../../store/state';
 
-const medias = [1, 2, 3, 4];
-const products = [1, 2, 3];
+interface LandingProps extends RouteComponentProps {
 
-const Auth = () => {
+}
+
+const Landing = (props: LandingProps) => {
+    const state: DefaultState = store.getState();
+    if (props.location.pathname !== "/" && !state.auth.auth) {
+        store.dispatch(SignInOpenForm());
+    }
     return (
         <Fragment>
             <NavBarUnauthenticate />
             <br />
             <Container>
-                
+
                 <Services />
-                <br />
-                <br />
 
                 <Apps />
                 <br />
                 <br />
 
-                <Row>
-                    {medias.map((media, key) => <Col key={key} md={6} xs={12}>
-                        <Media />
-                        <br />
-                    </Col>)}
-                </Row>
+                <Features />
                 <br />
-                <Row>
-                    {products.map((media, key) => <Col key={key} md={4} xs={12}>
-                        <Product />
-                        <br />
-                    </Col>)}
-                </Row>
+                <Products />
                 <br />
                 <br />
 
@@ -59,4 +59,4 @@ const Auth = () => {
     )
 }
 
-export default Auth;
+export default withRouter(Landing);

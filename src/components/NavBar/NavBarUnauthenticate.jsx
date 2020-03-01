@@ -1,4 +1,7 @@
-import React, { useState, Fragment } from 'react';
+
+// @flow
+
+import React, { useState, Fragment, CSSProperties } from 'react';
 import {
     Collapse,
     Navbar,
@@ -9,30 +12,54 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import Auth from '../Auth';
+import { connect } from 'react-redux';
+import { DefaultState } from '../../store/state';
+import { authTypes } from '../../actions/actionTypes';
+import { SignInOpenForm, SignUpOpenForm, CloseForm } from '../../actions/auth';
+import { Dispatch } from 'redux';
 
-const NavBarUnauthenticate = (props) => {
+const logoSrc = '//eclosionit.com/wp-content/themes/eclosiontheme/img/information-technologyitEclosion%C2%AE.png';
+
+const logoStyle: CSSProperties = {
+    maxHeight: 30
+}
+
+const mapProps = (state: DefaultState) => ({
+    action: state.auth.action
+});
+
+interface NavBarUnauthenticateProps {
+    action: String;
+    dispatch: Dispatch
+}
+
+var activeForm = '';
+
+const NavBarUnauthenticate = (props: NavBarUnauthenticateProps) => {
     const [state, setState] = useState({
         collapse: false,
-        isOpen: false,
-        mode: ''
     });
 
     const toggleCollapse = () => setState({ collapse: !state.collapse });
     const toggleSignIn = (e: React.MouseEvent) => {
         e.preventDefault();
-        setState({ isOpen: !state.isOpen, mode: 'sign-in' });
+        props.dispatch(SignInOpenForm());
     }
     const toggleSignUp = (e: React.MouseEvent) => {
         e.preventDefault();
-        setState({ isOpen: !state.isOpen, mode: 'sign-up' });
+        props.dispatch(SignUpOpenForm());
     }
-    const toggleIsOpen = () => setState({ ...state, isOpen: false });
+    const toggleIsOpen = () => props.dispatch(CloseForm());
+    const isOpen = props.action !== '';
+    const mode = props.action === authTypes.ActionSignInOpenForm ?
+        'sign-in' : 'sign-up';
+    activeForm = props.action !== '' ? mode : activeForm;
 
     return (
         <Fragment>
-            <Navbar color="primary" dark expand="md">
+            <Navbar color="light" light expand="md">
                 <NavbarBrand href="/">
-                    <i className="fa fa-home"></i> Home
+                    <img alt='' style={logoStyle} src={logoSrc} /> Home
                 </NavbarBrand>
                 <NavbarToggler onClick={toggleCollapse} />
                 <Collapse isOpen={state.collapse} navbar>
@@ -53,11 +80,11 @@ const NavBarUnauthenticate = (props) => {
             </Navbar>
 
             <Auth
-                mode={state.mode}
-                isOpen={state.isOpen}
+                mode={activeForm}
+                isOpen={isOpen}
                 toggle={toggleIsOpen} />
         </Fragment>
     );
 }
 
-export default NavBarUnauthenticate;
+export default connect(mapProps)(NavBarUnauthenticate);

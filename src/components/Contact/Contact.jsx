@@ -12,7 +12,7 @@ const Contact = (props) => {
     return (
         <Fragment>
             <Container id="contact">
-                <h3 className="text-center">Contact</h3>
+                <h3 className="text-center">Contacto</h3>
                 <br />
                 <br />
                 <Row>
@@ -21,7 +21,7 @@ const Contact = (props) => {
                             <Row>
                                 <Col>
                                     <FormGroup>
-                                        <Label for="name">Name</Label>
+                                        <Label for="name">Nombres</Label>
                                         <Input type="text" name="name" id="name" />
                                     </FormGroup>
                                 </Col>
@@ -34,7 +34,7 @@ const Contact = (props) => {
                             </Row>
 
                             <FormGroup>
-                                <Label for="Subject">Subject</Label>
+                                <Label for="Subject">Asunto</Label>
                                 <Input
                                     type="text"
                                     name="subject"
@@ -43,7 +43,7 @@ const Contact = (props) => {
                             </FormGroup>
 
                             <FormGroup>
-                                <Label for="Description">Description</Label>
+                                <Label for="Description">Descripción</Label>
                                 <Input
                                     type="textarea"
                                     name="description"
@@ -51,7 +51,7 @@ const Contact = (props) => {
                                     defaultValue={description} />
                             </FormGroup>
 
-                            <Button color='primary'>Submit</Button>
+                            <Button color='primary'>Enviar</Button>
                         </Form>
                     </Col>
                     <Col>

@@ -1,90 +1,41 @@
 
+// @flow
 
-import React, { useState } from 'react';
+import React, { Fragment } from 'react';
 import {
-    Carousel,
-    CarouselItem,
-    CarouselControl,
-    CarouselIndicators,
-    CarouselCaption
+    Jumbotron,
+    Container
 } from 'reactstrap';
 
-const items = [
-    {
-        id: 1,
-        altText: 'Slide 1',
-        caption: 'Slide 1'
+const styles = {
+    img: {
+        height: '100%'
     },
-    {
-        id: 2,
-        altText: 'Slide 2',
-        caption: 'Slide 2'
-    },
-    {
-        id: 3,
-        altText: 'Slide 3',
-        caption: 'Slide 3'
+    container: {
+        padding: 40
     }
-];
+}
 
-const Services = (props) => {
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [animating, setAnimating] = useState(false);
-
-    const next = () => {
-        if (animating) return;
-        const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
-        setActiveIndex(nextIndex);
-    }
-
-    const previous = () => {
-        if (animating) return;
-        const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
-        setActiveIndex(nextIndex);
-    }
-
-    const goToIndex = (newIndex) => {
-        if (animating) return;
-        setActiveIndex(newIndex);
-    }
-
-    const slides = items.map((item) => {
-        return (
-            <CarouselItem
-                className="custom-tag"
-                tag="div"
-                key={item.id}
-                onExiting={() => setAnimating(true)}
-                onExited={() => setAnimating(false)}
-            >
-                <CarouselCaption className="text-danger" captionText={item.caption} captionHeader={item.caption} />
-            </CarouselItem>
-        );
-    });
-
+const Services = () => {
     return (
-        <div>
-            <style>
-                {
-                    `.custom-tag {
-              max-width: 100%;
-              height: 500px;
-              background: black;
-            }`
-                }
-            </style>
-            <Carousel
-                activeIndex={activeIndex}
-                next={next}
-                previous={previous}
-            >
-                <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
-                {slides}
-                <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-                <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
-            </Carousel>
-        </div>
-    );
+        <Fragment>
+            <Jumbotron fluid>
+                <Container style={styles.container}>
+                    <h1 className="display-3 text-center">
+                        ODOO CRM/ERP como servicio
+                    </h1>
+                    <p className="lead">
+                        La gestión de clientes y usuarios es una de las claves
+                        para que un negocio funcione y si para el tuyo esto es
+                        esencial, es importante que cuentes con un CRM de
+                        calidad y que te ayude a gestionar todos los datos
+                        recogidos.
+                    </p>
+                    <a href="#features">Saber mas</a>
+                </Container>
+            </Jumbotron>
+        </Fragment>
+    )
 }
 
 export default Services;

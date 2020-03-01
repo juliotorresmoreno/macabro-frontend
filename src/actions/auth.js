@@ -62,3 +62,15 @@ export const SignUp = (user: UserProfileWithPassword) => {
         return dispatch(_SignUp(data));
     }
 }
+
+export const SignInOpenForm = createAction(authTypes.ActionSignInOpenForm);
+export const SignUpOpenForm = createAction(authTypes.ActionSignUpOpenForm);
+export const CloseForm = createAction(authTypes.CloseForm);
+
+export interface ActionRedirect extends Action {
+    payload: String
+}
+export const Redirect: (url: String) => ActionRedirect = createAction(authTypes.Redirect);
+
+export const LogOut = createAction(authTypes.LogOut);
+
