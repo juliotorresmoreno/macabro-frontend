@@ -31,6 +31,7 @@ export const Context = createContext<IContextState>();
 
 interface ProfileFormProps {
     countries: any[],
+    onSubmit: (state: any) => void,
     onChange: (key: String, value: String) => void
 }
 
@@ -44,7 +45,7 @@ export const validate = (state: IContextState) => {
         errors.name = 'Name is not valid';
         ok = false;
     }
-    if (!validator.nameValid.test(this.lastname)) {
+    if (!validator.nameValid.test(state.lastname)) {
         errors.lastname = 'Lastname is not valid';
         ok = false;
     }
@@ -59,8 +60,14 @@ class ProfileForm extends React.PureComponent<ProfileFormProps> {
 
     constructor() {
         super();
+        this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onImgChange = this.onImgChange.bind(this);
+    }
+
+    onSubmit(e: React.FormEvent<HTMLElement>) {
+        e.preventDefault();
+        this.props.onSubmit();
     }
 
     onChange(e: React.ChangeEvent<React.InputHTMLAttributes>) {
@@ -81,12 +88,14 @@ class ProfileForm extends React.PureComponent<ProfileFormProps> {
                         <Row>
                             <Col>
                                 <Input
+                                    error={this.context.errors.name}
                                     onChange={this.onChange}
                                     value={this.context.name}
                                     name='name' title='Nombres' />
                             </Col>
                             <Col>
                                 <Input
+                                    error={this.context.errors.lastname}
                                     onChange={this.onChange}
                                     value={this.context.lastname}
                                     name='lastname' title='Apellidos' />
@@ -97,6 +106,7 @@ class ProfileForm extends React.PureComponent<ProfileFormProps> {
                             <Col>
                                 <Label>Tipo</Label>
                                 <InputBS type='select'
+                                    error={this.context.errors.document_type}
                                     onChange={this.onChange}
                                     value={this.context.document_type}
                                     name='document_type' title='Tipo'>
@@ -109,19 +119,21 @@ class ProfileForm extends React.PureComponent<ProfileFormProps> {
                             </Col>
                             <Col>
                                 <Input
-                                    onChange={this.onChange}
+                                    error={this.context.errors.expedite}
+                                    onChange={this.onChange} type='date'
                                     value={this.context.expedite}
-                                    type='date'
                                     name='expedite' title='Expedida' />
                             </Col>
                         </Row>
                         <Input
+                            error={this.context.errors.document}
                             onChange={this.onChange}
                             value={this.context.document}
                             name='document' title='Documento' />
 
                         <FormGroup>
                             <Input
+                                error={this.context.errors.date_birth}
                                 onChange={this.onChange}
                                 value={this.context.date_birth}
                                 name='date_birth'
@@ -132,6 +144,7 @@ class ProfileForm extends React.PureComponent<ProfileFormProps> {
                         <Row>
                             <Col>
                                 <Input
+                                    error={this.context.errors.country}
                                     type='select'
                                     onChange={this.onChange}
                                     value={this.context.country}
@@ -145,6 +158,7 @@ class ProfileForm extends React.PureComponent<ProfileFormProps> {
                             </Col>
                             <Col>
                                 <Input
+                                    error={this.context.errors.nationality}
                                     onChange={this.onChange} type='select'
                                     value={this.context.nationality}
                                     name='nationality' title='Nacionalidad'>
@@ -158,10 +172,12 @@ class ProfileForm extends React.PureComponent<ProfileFormProps> {
                         </Row>
 
                         <Input
+                            error={this.context.errors.linkedin}
                             onChange={this.onChange}
                             value={this.context.linkedin}
                             name='linkedin' title='Linkedin' />
                         <Input
+                            error={this.context.errors.facebook}
                             onChange={this.onChange}
                             value={this.context.facebook}
                             name='facebook' title='Facebook' />
@@ -174,7 +190,7 @@ class ProfileForm extends React.PureComponent<ProfileFormProps> {
                                 </Alert>
                             </Fragment> : false}
 
-                        <Button color='primary'>Guardar</Button>
+                        <Button onClick={this.onSubmit} color='primary'>Guardar</Button>
                     </Col>
                     <Col md={4}>
                         <div>Foto</div>

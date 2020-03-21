@@ -10,6 +10,7 @@ interface InputProps {
     name: String,
     title: String,
     type: String,
+    error: String,
     children: React.ReactChildren,
     onChange: (e: React.ChangeEvent<React.InputHTMLAttributes>) => void
 }

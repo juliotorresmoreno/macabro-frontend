@@ -4,6 +4,8 @@
 
 import React from 'react';
 import ProfileForm, { Context, validate } from '../Forms/ProfileForm';
+import * as profile from '../../actions/profile';
+import store from '../../store';
 import { useState } from 'react';
 
 const Profile = () => {
@@ -26,10 +28,19 @@ const Profile = () => {
     const onChange = (key: String, value: String) => {
         setState({ ...state, [key]: value });
     }
-    const onSubmit = (state) => {
-        const [ok, errors] = validate(state);
-        if (!ok) {
-            setState({ ...state, errors });
+    const onSubmit = async () => {
+        try {
+            const [ok, errors] = validate(state);
+            if (!ok) {
+                return setState({ ...state, errors });
+            }
+            var data = { ...state };
+            delete data.errors;
+            await store.dispatch(profile.Patch(data));
+            setState({ ...state, errors: { error: '' } });
+        } catch (error) {
+            setState({ ...state, errors: { error: error.message } });
+            console.trace(error);
         }
     }
     return (
