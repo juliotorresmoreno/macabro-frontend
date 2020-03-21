@@ -8,6 +8,10 @@ export interface AuthState {
     redirect: String
 }
 
+
+export type CountriesState = [];
+
 export interface DefaultState {
-    auth: AuthState
+    auth: AuthState,
+    countries: CountriesState
 }

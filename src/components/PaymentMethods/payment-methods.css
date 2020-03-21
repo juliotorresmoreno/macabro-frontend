@@ -1,0 +1,16 @@
+
+#payment-methods .table th:last-child {
+    width: 70px;
+}
+
+#payment-methods .table th:nth-child(1) {
+    width: 40%;
+}
+
+#payment-methods #content-table {
+    min-height: 450px;
+}
+
+#payment-methods .fa-trash {
+    color: brown;
+}

@@ -1,0 +1,18 @@
+
+#billing .table th:last-child {
+    width: 70px;
+}
+
+#billing .table th:nth-child(1),
+#billing .table th:nth-child(3) {
+    min-width: 100px;
+    width: 20%;
+}
+
+#billing #content-table {
+    min-height: 450px;
+}
+
+#billing .fa-download {
+    color: forestgreen;
+}

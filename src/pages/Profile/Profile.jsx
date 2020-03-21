@@ -3,27 +3,45 @@
 import React, { Fragment } from 'react';
 import NavBarAuthenticate from '../../components/NavBar/NavBarAuthenticate';
 import Footer from '../../components/Footer';
-import ProfileC from '../../components/Profile';
+import UserProfile from '../../components/UserProfile';
 import { Container, Row, Col, ListGroup } from 'reactstrap';
 import { Link, withRouter, RouteComponentProps, Switch, Route } from 'react-router-dom';
-import Business from '../../components/Business/Business';
+import Business from '../../components/Business';
+import Billing from '../../components/Billing';
+import Statistics from '../../components/Statistics';
+import PaymentMethods from '../../components/PaymentMethods';
+import { useEffect } from 'react';
+import { DefaultState } from '../../store/state';
+import * as countries from '../../actions/countries';
+import { connect, DispatchProp } from 'react-redux';
 
 const className = "list-group-item-action list-group-item";
 
 
 interface ProfileProps extends RouteComponentProps {
-
+    countries: Number,
+    dispatch: DispatchProp
 }
 
-const Profile = (props: ProfileProps) => {
+const mapProps = (state: DefaultState) => ({
+    countries: state.countries.length
+});
 
+const Profile = (props: ProfileProps) => {
     const active = [
         props.location.pathname === "/profile" ? "active" : '',
         props.location.pathname === "/profile/business" ? "active" : '',
-        props.location.pathname === "/profile/billing" ? "active" : '',
-        props.location.pathname === "/profile/payments" ? "active" : '',
+        /\/profile\/billing/.test(props.location.pathname) ? "active" : '',
+        props.location.pathname === "/profile/payment-methods" ? "active" : '',
         props.location.pathname === "/profile/statistics" ? "active" : ''
-    ]
+    ];
+
+
+    useEffect(() => {
+        if (props.countries === 0) {
+            props.dispatch(countries.Get());
+        }
+    });
 
     return (
         <Fragment>
@@ -45,14 +63,14 @@ const Profile = (props: ProfileProps) => {
                                 className={`${className} ${active[2]}`}>
                                 Facturación
                             </Link>
-                            <Link to="/profile/payments"
+                            <Link to="/profile/payment-methods"
                                 className={`${className} ${active[3]}`}>
                                 Metodos de pago
                             </Link>
-                            <Link to="/profile/statistics"
+                            {/*<Link to="/profile/statistics"
                                 className={`${className} ${active[4]}`}>
                                 Estadisticas
-                        </Link>
+                            </Link>*/}
                         </ListGroup>
                     </Col>
                     <Col>
@@ -60,7 +78,10 @@ const Profile = (props: ProfileProps) => {
                             <Col>
                                 <Switch>
                                     <Route path='/profile/business' component={Business} exact />
-                                    <Route path='/profile' component={ProfileC} exact />
+                                    <Route path='/profile/billing' component={Billing} exact />
+                                    <Route path='/profile/payment-methods' component={PaymentMethods} exact />
+                                    <Route path='/profile/statistics' component={Statistics} exact />
+                                    <Route path='/profile' component={UserProfile} exact />
                                 </Switch>
                             </Col>
                         </Row>
@@ -73,5 +94,5 @@ const Profile = (props: ProfileProps) => {
     );
 }
 
-export default withRouter(Profile);
+export default connect(mapProps)(withRouter(Profile));
 

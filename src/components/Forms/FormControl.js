@@ -2,12 +2,13 @@
 // @flow
 
 export interface FormControlComponent {
+    [name: String]: any,
     errors: { [x: String]: String, error: String },
     reset: () => {},
     validate: () => {}
 }
 
-class FormControl {
+class FormControl implements FormControlComponent {
     state: FormControlComponent
     subscriptions = new Set();
 

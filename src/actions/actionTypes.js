@@ -11,3 +11,8 @@ export const authTypes = {
     Redirect: `${_auth}/Redirect`,
     LogOut: `${_auth}/LogOut`
 }
+
+const _country = '@country';
+export const countryTypes = {
+    Get: `${_country}/Get`
+}
