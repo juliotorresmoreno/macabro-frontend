@@ -1,4 +1,5 @@
 
+// @flow
 
 import React, { Fragment } from 'react';
 import { Form, FormGroup, Label, Input, Col, Row, Alert } from 'reactstrap';
