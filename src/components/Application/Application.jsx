@@ -11,6 +11,7 @@ import store from '../../store';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import Redirect from '../Redirect';
 import { DefaultState } from '../../store/state';
+import LoadData from '../LoadData/LoadData';
 
 const RProfile = () => {
     const state: DefaultState = store.getState();
@@ -24,6 +25,7 @@ function App() {
         <Provider store={store}>
             <BrowserRouter>
                 <Redirect />
+                <LoadData />
                 <Switch>
                     <Route path="/privacy" component={Privacy} exact />
                     <Route path="/terms" component={Terms} exact />

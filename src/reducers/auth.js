@@ -17,7 +17,8 @@ const defaultState: AuthState = {
 export default createReducer(defaultState, {
     [authTypes.ActionSignIn]: (state, action: ActionSignIn) => {
         state.auth = true;
-        state.profile = action.payload
+        state.profile = action.payload;
+        state.action = '';
     },
     [authTypes.ActionSignUp]: (state, action: ActionSignUp) => {
         state.auth = true;

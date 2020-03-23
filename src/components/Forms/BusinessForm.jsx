@@ -7,18 +7,12 @@ import InputImage from "../Forms/InputImage";
 import { DefaultState } from "../../store/state";
 import { Button, Row, Col, FormGroup } from "reactstrap";
 import { connect } from "react-redux";
+import { BusinessProfile } from "../../models";
+import { InputKeyPressValidator } from "../../helper";
+import { progresiveNameValid } from "./validator";
 
 
-interface IContextState {
-    busisness: '',
-    nit: '',
-    legal_representative: '',
-    website: '',
-    address: '',
-    country: 'CO',
-    city: '',
-    economic_activity: '',
-    imgSrc: '',
+export interface IContextState extends BusinessProfile {
     errors: {
         error: '',
         [x: String]: String
@@ -27,13 +21,16 @@ interface IContextState {
 
 export const Context = createContext<IContextState>();
 
+export const validate = () => [true, {}];
+
 const mapProps = (state: DefaultState) => ({
     countries: state.countries
 });
 
 interface BusinessProps {
     countries: any[],
-    onChange: (key: String, value: any) => void
+    onChange: (key: String, value: any) => void,
+    onSubmit: () => void
 }
 
 class Business extends React.PureComponent<BusinessProps> {
@@ -45,6 +42,7 @@ class Business extends React.PureComponent<BusinessProps> {
     constructor() {
         super();
 
+        this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onImgChange = this.onImgChange.bind(this);
     }
@@ -59,6 +57,10 @@ class Business extends React.PureComponent<BusinessProps> {
         this.props.onChange('imgSrc', value);
     }
 
+    onSubmit() {
+        this.props.onSubmit();
+    }
+
     render() {
         return (
             <Row>
@@ -66,13 +68,15 @@ class Business extends React.PureComponent<BusinessProps> {
                     <Row>
                         <Col>
                             <Input
+                                onKeyPress={InputKeyPressValidator(progresiveNameValid, /.{0,255}/)}
                                 onChange={this.onChange}
-                                value={this.context.busisness}
-                                name='busisness'
+                                value={this.context.name}
+                                name='name'
                                 title="Razón social" />
                         </Col>
                         <Col>
                             <Input
+                                onKeyPress={InputKeyPressValidator(/^[0-9]{0,20}-?[0-9]?$/)}
                                 onChange={this.onChange}
                                 value={this.context.nit}
                                 name='nit' title="Nit" />
@@ -80,6 +84,7 @@ class Business extends React.PureComponent<BusinessProps> {
                     </Row>
                     <Input
                         onChange={this.onChange}
+                        onKeyPress={InputKeyPressValidator(progresiveNameValid, /.{0,255}/)}
                         value={this.context.legal_representative}
                         name='legal_representative'
                         title="Representante legal" />
@@ -105,13 +110,15 @@ class Business extends React.PureComponent<BusinessProps> {
                         </Col>
                         <Col>
                             <Input
+                                onKeyPress={InputKeyPressValidator(progresiveNameValid, /.{0,255}/)}
                                 onChange={this.onChange}
                                 value={this.context.city}
                                 name='city' title="Ciudad" />
                         </Col>
                     </Row>
-                    
+
                     <Input
+                        onKeyPress={InputKeyPressValidator(/.{0,255}/)}
                         onChange={this.onChange}
                         value={this.context.address}
                         name='address' title="Dirección" />
@@ -119,12 +126,13 @@ class Business extends React.PureComponent<BusinessProps> {
 
                     <FormGroup>
                         <Input
+                            onKeyPress={InputKeyPressValidator(/.{0,500}/)}
                             onChange={this.onChange}
                             title='Actividad económica'
                             value={this.context.economic_activity}
                             name='economic_activity' type='textarea' />
                     </FormGroup>
-                    <Button color='primary'>Guardar</Button>
+                    <Button onClick={this.onSubmit} color='primary'>Guardar</Button>
                 </Col>
                 <Col md={4}>
                     <div>Logo</div>

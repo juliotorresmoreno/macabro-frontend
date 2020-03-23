@@ -16,3 +16,13 @@ const _country = '@country';
 export const countryTypes = {
     Get: `${_country}/Get`
 }
+
+const _profile = '@profile';
+export const profileTypes = {
+    Get: `${_profile}/Get`
+}
+
+const _business = '@business';
+export const businessTypes = {
+    Get: `${_business}/Get`
+}

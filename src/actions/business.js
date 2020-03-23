@@ -1,14 +1,14 @@
 import { Dispatch } from 'redux';
 import { createAction, Action } from '@reduxjs/toolkit';
 import config from '../config';
-import { authTypes } from './actionTypes';
-import { UserProfile } from '../models';
+import { authTypes, businessTypes } from './actionTypes';
+import { BusinessProfile } from '../models';
 import { DefaultState } from '../store/state';
 
-export const Patch = (data) => {
+export const Patch = (data: BusinessProfile) => {
     return async (dispatch: Dispatch, getState: () => DefaultState) => {
         const state = getState();
-        const url = `${config.server_url}/api/users/${state.auth.profile.id}`;
+        const url = `${config.server_url}/api/business/${state.auth.profile.id}`;
         const response = await fetch(url, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -22,22 +22,22 @@ export const Patch = (data) => {
 }
 
 const _LogOut = createAction(authTypes.LogOut);
-const _SignIn: (c: UserProfile) => Action = createAction(authTypes.ActionSignIn);
+const _Get: (c: BusinessProfile) => Action = createAction(businessTypes.Get);
 export const Get = () => {
     return async (dispatch: Dispatch, getState: () => DefaultState) => {
-        const state = getState();
-        const url = `${config.server_url}/api/users/${state.auth.profile.id}`;
+        const state: DefaultState = getState();
+        const url = `${config.server_url}/api/business/${state.auth.profile.id}`;
         const response = await fetch(url, {
             method: 'GET',
             credentials: 'include',
             mode: 'cors'
         });
-        const data: UserProfile | { message: String } = await response.json();
+        const data: BusinessProfile | { message: String } = await response.json();
         if (!response.ok) {
             if (response.status === 401)
                 return dispatch(_LogOut());
             throw new Error(data.message);
         }
-        return dispatch(_SignIn(data));
+        return dispatch(_Get(data));
     }
 }

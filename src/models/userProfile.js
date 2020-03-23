@@ -7,8 +7,19 @@ export interface UserProfile {
     name: String,
     lastname: String,
     email: String,
+
+    document_type: String,
+    expedite: String,
+    document: String,
+    date_birth: String,
+    imgSrc: String,
+    country: String,
+    nationality: String,
+    facebook: String,
+    linkedin: String,
+
     role: 'admin' | 'user',
-    token: String
+    token: String,
 }
 
 export interface UserProfileWithPassword {
@@ -17,5 +28,16 @@ export interface UserProfileWithPassword {
     name: String,
     lastname: String,
     email: String,
+    
+    document_type: String,
+    expedite: String,
+    document: String,
+    date_birth: String,
+    imgSrc: String,
+    country: String,
+    nationality: String,
+    facebook: String,
+    linkedin: String,
+
     password: String
 }

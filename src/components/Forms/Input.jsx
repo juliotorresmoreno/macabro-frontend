@@ -12,7 +12,8 @@ interface InputProps {
     type: String,
     error: String,
     children: React.ReactChildren,
-    onChange: (e: React.ChangeEvent<React.InputHTMLAttributes>) => void
+    onChange: (e: React.ChangeEvent<React.InputHTMLAttributes>) => void,
+    onKeyPress: (event: React.KeyboardEvent<HTMLInputElement>) => void,
 }
 
 const RenderError = ({ msg }) => (
@@ -26,6 +27,7 @@ const Input = (props: InputProps) => (
             type={props.type || "text"}
             name={props.name} id={props.name}
             value={props.value}
+            onKeyPress={props.onKeyPress}
             onChange={props.onChange}>
             {props.children}
         </InputBS>

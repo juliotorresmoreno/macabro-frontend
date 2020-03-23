@@ -8,6 +8,7 @@ import InputImage from './InputImage';
 import { createContext } from 'react';
 import * as validator from '../Forms/validator';
 import { connect } from 'react-redux';
+import { InputKeyPressValidator } from '../../helper';
 
 interface IContextState {
     name: '',
@@ -127,6 +128,7 @@ class ProfileForm extends React.PureComponent<ProfileFormProps> {
                         </Row>
                         <Input
                             error={this.context.errors.document}
+                            onKeyPress={InputKeyPressValidator(/^[0-9]{0,20}$/)}
                             onChange={this.onChange}
                             value={this.context.document}
                             name='document' title='Documento' />

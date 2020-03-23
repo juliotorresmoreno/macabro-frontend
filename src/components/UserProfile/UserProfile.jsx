@@ -7,20 +7,40 @@ import ProfileForm, { Context, validate } from '../Forms/ProfileForm';
 import * as profile from '../../actions/profile';
 import store from '../../store';
 import { useState } from 'react';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { DefaultState } from '../../store/state';
+import { UserProfile } from '../../models';
+import { parseError } from '../../helper';
 
-const Profile = () => {
+const mapProps = (state: DefaultState) => ({
+    profile: state.auth.profile
+});
+
+interface ProfileProps {
+    profile: UserProfile,
+    dispatch: Dispatch
+}
+
+const from_date = (date) => {
+    var t = new Date(Date.parse(date));
+    return t.toJSON().substr(0, 10);
+}
+
+const Profile = (props: ProfileProps) => {
     const [state, setState] = useState({
-        name: '',
-        lastname: '',
-        document_type: '',
-        expedite: '',
-        document: '',
-        date_birth: '',
-        imgSrc: '',
-        country: 'CO',
-        nationality: 'CO',
-        facebook: '',
-        linkedin: '',
+        name: props.profile.name,
+        lastname: props.profile.lastname,
+        document_type: props.profile.document_type,
+        expedite: from_date(props.profile.expedite),
+        document: props.profile.document,
+        date_birth: from_date(props.profile.date_birth),
+        imgSrc: props.profile.imgSrc,
+        country: props.profile.country,
+        nationality: props.profile.nationality,
+        facebook: props.profile.facebook,
+        linkedin: props.profile.linkedin,
+
         errors: {
             error: ''
         }
@@ -36,11 +56,22 @@ const Profile = () => {
             }
             var data = { ...state };
             delete data.errors;
+            var to_date = (date): Date => {
+                var t = new Date(Date.parse(date));
+                t.setSeconds(t.getSeconds() + t.getTimezoneOffset());
+                console.log(date, t.toJSON());
+                return t;
+            }
+            data.date_birth = to_date(data.date_birth).toJSON();
+            data.expedite = to_date(data.expedite).toJSON();
+            
             await store.dispatch(profile.Patch(data));
             setState({ ...state, errors: { error: '' } });
+            props.dispatch(profile.Get());
         } catch (error) {
-            setState({ ...state, errors: { error: error.message } });
-            console.trace(error);
+            var errors = parseError(error.message);
+            setState({ ...state, errors });
+            console.trace(errors);
         }
     }
     return (
@@ -50,5 +81,5 @@ const Profile = () => {
     )
 }
 
-export default Profile;
+export default connect(mapProps)(Profile);
 

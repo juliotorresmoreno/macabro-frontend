@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import { Form, FormGroup, Label, Input, Col, Row, Alert } from 'reactstrap';
 import { createContext } from 'react';
 
-interface IDefaultContextState {
+interface IContextState {
     number: '',
     expiration_month: '',
     expiration_year: '',
@@ -17,40 +17,7 @@ interface IDefaultContextState {
     }
 }
 
-const defaultContextState = {
-    number: '',
-    expiration_month: '',
-    expiration_year: '',
-    cvv: '',
-    errors: {
-        cvv: '',
-        expiration: '',
-        number: '',
-        error: ''
-    }
-}
-
-export const Context = createContext(defaultContextState);
-
-export const validate = (state) => {
-    var ok = true;
-    var errors = { cvv: '', number: '', expiration: '' };
-    if (!/^[0-9]{16,20}$/.test(state.number)) {
-        errors.number = 'El numero no es valido';
-        ok = false;
-    }
-    const expiration = `${state.expiration_month}/${state.expiration_year}`
-    if (!/^(0?[0-9]|1[0-2])\/[0-9][0-9]$/.test(expiration)) {
-        errors.expiration = 'La fecha de expiracoón no es valida';
-        ok = false;
-    }
-    console.log(state, state.cvv);
-    if (!/^[0-9]{3,4}$/.test(state.cvv)) {
-        errors.cvv = 'El codigo de verificación no es valido';
-        ok = false;
-    }
-    return [ok, errors];
-}
+export const Context = createContext<IContextState>({});
 
 interface PaymentMethodsProps {
     onChange: (key: String, value: any) => void
@@ -154,3 +121,22 @@ class PaymentMethods extends React.PureComponent<PaymentMethodsProps> {
 PaymentMethods.contextType = Context;
 
 export default PaymentMethods;
+
+export const validate = (state) => {
+    var ok = true;
+    var errors = { cvv: '', number: '', expiration: '' };
+    if (!/^[0-9]{16,20}$/.test(state.number)) {
+        errors.number = 'El numero no es valido';
+        ok = false;
+    }
+    const expiration = `${state.expiration_month}/${state.expiration_year}`
+    if (!/^(0?[0-9]|1[0-2])\/[0-9][0-9]$/.test(expiration)) {
+        errors.expiration = 'La fecha de expiracoón no es valida';
+        ok = false;
+    }
+    if (!/^[0-9]{3,4}$/.test(state.cvv)) {
+        errors.cvv = 'El codigo de verificación no es valido';
+        ok = false;
+    }
+    return [ok, errors];
+}
