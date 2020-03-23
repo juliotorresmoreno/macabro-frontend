@@ -4,18 +4,15 @@
 import React, { Fragment } from 'react';
 import { Form, FormGroup, Label, Input, Col, Row, Alert } from 'reactstrap';
 import { createContext } from 'react';
+import { PaymentMethod } from '../../models';
+import { InputKeyPressValidator } from '../../helper';
 
-interface IContextState {
-    number: '',
-    expiration_month: '',
-    expiration_year: '',
-    cvv: '',
-    errors: {
-        cvv: '',
-        expiration: '',
-        number: '',
-        error: ''
-    }
+interface IErrors extends PaymentMethod {
+    error: String
+}
+
+export interface IContextState extends PaymentMethod {
+    errors: IErrors
 }
 
 export const Context = createContext<IContextState>({});
@@ -49,31 +46,29 @@ class PaymentMethods extends React.PureComponent<PaymentMethodsProps> {
     context: IDefaultContextState
     onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let { name, value } = e.target;
-        if (/expiration/.test(name))
-            if (value.length > 2) return;
-        if (name === 'expiration_month')
-            if (!/^(0[0-9]|1[0-2]|[0-9]{0,1})$/.test(value)) return;
-        if (name === 'cvv')
-            if (!/^[0-9]{0,4}$/.test(value)) return;
         if (name === 'number')
             value = value.replace(/-/g, '');
-        if (!/^[0-9-]{0,20}$/.test(value)) return;
         this.props.onChange(name, value);
-    }
-    onExpirationKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
-        if (!/[0-9]/.test(e.key)) {
-            e.preventDefault();
-        }
     }
     render() {
         return (
             <Fragment>
                 <Form>
                     <FormGroup>
+                        <Label>Nombre</Label>
+                        <Input
+                            type='text' name='name'
+                            value={this.context.name}
+                            
+                            onChange={this.onChange} />
+                        <RenderError msg={this.context.errors.name} />
+                    </FormGroup>
+                    <FormGroup>
                         <Label>Numero</Label>
                         <Input
                             type='text' name='number'
                             value={formatNumber(this.context.number)}
+                            onKeyPress={InputKeyPressValidator(/^[0-9-]{0,20}$/)}
                             onChange={this.onChange} />
                         <RenderError msg={this.context.errors.number} />
                     </FormGroup>
@@ -86,7 +81,7 @@ class PaymentMethods extends React.PureComponent<PaymentMethodsProps> {
                                         <Input
                                             type='text' name='expiration_month'
                                             value={this.context.expiration_month}
-                                            onKeyPress={this.onExpirationKeyPress}
+                                            onKeyPress={InputKeyPressValidator(/^(0[0-9]|1[0-2]|[0-9]{0,1})$/, /^[0-9]{0,2}$/)}
                                             onChange={this.onChange} />
                                     </Col>
                                     <span style={{ paddingTop: 6 }}>/</span>
@@ -94,7 +89,7 @@ class PaymentMethods extends React.PureComponent<PaymentMethodsProps> {
                                         <Input
                                             type='text' name='expiration_year'
                                             value={this.context.expiration_year}
-                                            onKeyPress={this.onExpirationKeyPress}
+                                            onKeyPress={InputKeyPressValidator(/^[0-9]{0,2}$/)}
                                             onChange={this.onChange} />
                                     </Col>
                                 </Row>
@@ -107,6 +102,7 @@ class PaymentMethods extends React.PureComponent<PaymentMethodsProps> {
                                 <Input
                                     type='text' name='cvv'
                                     value={this.context.cvv}
+                                    onKeyPress={InputKeyPressValidator(/^[0-9]{0,4}$/)}
                                     onChange={this.onChange} />
                                 <RenderError msg={this.context.errors.cvv} />
                             </FormGroup>
@@ -126,8 +122,8 @@ export default PaymentMethods;
 export const validate = (state) => {
     var ok = true;
     var errors = { cvv: '', number: '', expiration: '' };
-    if (!/^[0-9]{16,20}$/.test(state.number)) {
-        errors.number = 'El numero no es valido';
+    if (!/^[0-9]{15,16}$/.test(state.number)) {
+        errors.number = `El numero ${state.number} no es valido`;
         ok = false;
     }
     const expiration = `${state.expiration_month}/${state.expiration_year}`

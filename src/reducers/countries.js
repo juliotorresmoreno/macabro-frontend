@@ -9,6 +9,7 @@ const defaultState: CountriesState = [];
 
 export default createReducer(defaultState, {
     [countryTypes.Get]: (state, action: Action) => {
+        state.splice(0);
         state.push(...action.payload)
     }
 });

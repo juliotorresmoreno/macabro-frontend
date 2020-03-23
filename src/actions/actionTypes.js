@@ -26,3 +26,9 @@ const _business = '@business';
 export const businessTypes = {
     Get: `${_business}/Get`
 }
+
+
+const _paymentMethods = '@paymentMethods';
+export const paymentMethodsTypes = {
+    Get: `${_paymentMethods}/Get`
+}

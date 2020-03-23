@@ -1,5 +1,5 @@
 
-import { UserProfile, BusinessProfile } from '../models';
+import { UserProfile, BusinessProfile, PaymentMethod } from '../models';
 
 export interface AuthState {
     auth: Boolean,
@@ -11,8 +11,11 @@ export interface AuthState {
 
 export type CountriesState = [];
 
+export type PaymentMethodState = PaymentMethod[]
+
 export interface DefaultState {
     auth: AuthState,
     countries: CountriesState,
-    business: BusinessProfile
+    business: BusinessProfile,
+    paymentMethods: PaymentMethodState
 }
