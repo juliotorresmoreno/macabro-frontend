@@ -2,14 +2,14 @@
 
 import React, { Fragment } from 'react';
 import NavBarAuthenticate from '../../components/NavBar/NavBarAuthenticate';
-import Footer from '../../components/Footer';
-import UserProfile from '../../components/UserProfile';
+//import Footer from '../../components/Footer';
+import UserProfile from '../../components/Profile/UserProfile';
 import { Container, Row, Col, ListGroup } from 'reactstrap';
 import { Link, withRouter, RouteComponentProps, Switch, Route } from 'react-router-dom';
-import Business from '../../components/Business';
-import Billing from '../../components/Billing';
-import Statistics from '../../components/Statistics';
-import PaymentMethods from '../../components/PaymentMethods';
+import Business from '../../components/Profile/Business';
+import Billing from '../../components/Profile/Billing';
+import Statistics from '../../components/Profile/Statistics';
+import PaymentMethods from '../../components/Profile/PaymentMethods';
 import { useEffect } from 'react';
 import { DefaultState } from '../../store/state';
 import * as countries from '../../actions/countries';
@@ -87,8 +87,10 @@ const Profile = (props: ProfileProps) => {
                         </Row>
                     </Col>
                 </Row>
+                <br />
+                <br />
 
-                <Footer />
+                {/*<Footer />*/}
             </Container>
         </Fragment>
     );

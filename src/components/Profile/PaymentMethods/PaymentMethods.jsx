@@ -2,7 +2,7 @@
 // @flow
 
 import React, { Fragment } from 'react';
-import Pagination from '../Pagination';
+import Pagination from '../../Pagination';
 import './payment-methods.css'
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -10,10 +10,10 @@ import { Table, Alert } from 'reactstrap';
 import AppendPaymentMethods from './AppendPaymentMethods';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { DefaultState, PaymentMethodState } from '../../store/state';
-import * as paymentMethods from '../../actions/payment-methods'
-import { PaymentMethod } from '../../models';
-import { parseError } from '../../helper';
+import { DefaultState, PaymentMethodState } from '../../../store/state';
+import * as paymentMethods from '../../../actions/payment-methods'
+import { PaymentMethod } from '../../../models';
+import { parseError } from '../../../helper';
 
 const mapProps = (state: DefaultState) => ({
     paymentMethods: state.paymentMethods
@@ -67,7 +67,7 @@ const PaymentMethods = (props: PaymentMethodsProps) => {
         <Fragment>
             <div id="payment-methods">
                 <div id="content-table">
-                    <Table striped>
+                    <Table striped bordered>
                         <thead>
                             <tr>
                                 <th>Nombre</th>

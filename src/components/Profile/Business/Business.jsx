@@ -2,13 +2,12 @@
 // @flow
 
 import React, { CSSProperties } from "react";
-import BusinessForm, { Context, validate, IContextState } from "../Forms/BusinessForm";
+import BusinessForm, { Context, validate, IContextState } from "../../Forms/BusinessForm";
 import { useState } from "react";
-import store from '../../store';
-import * as business from '../../actions/business';
+import * as business from '../../../actions/business';
 import { connect } from "react-redux";
-import { DefaultState } from "../../store/state";
-import { BusinessProfile } from "../../models";
+import { DefaultState } from "../../../store/state";
+import { BusinessProfile } from "../../../models";
 import { Dispatch } from "react";
 
 const style: CSSProperties = {
@@ -25,25 +24,7 @@ interface BusinessProps {
 }
 
 const Business = (props: BusinessProps) => {
-    const [loaded, setLoaded] = useState(false);
-    if (loaded === false) {
-        (async () => {
-            setLoaded(true);
-            await store.dispatch(business.Get());
-            setState({
-                name: props.business.name,
-                nit: props.business.nit,
-                legal_representative: props.business.legal_representative,
-                website: props.business.website,
-                address: props.business.address,
-                country: props.business.country,
-                city: props.business.city,
-                economic_activity: props.business.economic_activity,
-                imgSrc: props.business.imgSrc,
-                errors: { error: '' }
-            });
-        })();
-    }
+    const [loaded, setLoaded] = useState(0);
     const [state, setState] = useState<IContextState>({
         name: props.business.name,
         nit: props.business.nit,
@@ -56,6 +37,29 @@ const Business = (props: BusinessProps) => {
         imgSrc: props.business.imgSrc,
         errors: { error: '' }
     });
+
+    if (loaded === 0) {
+        setLoaded(1);
+        props.dispatch(business.Get())
+            .then(function() {
+                setLoaded(2);
+            });
+    }
+    if (loaded === 2) {
+        setState({
+            name: props.business.name,
+            nit: props.business.nit,
+            legal_representative: props.business.legal_representative,
+            website: props.business.website,
+            address: props.business.address,
+            country: props.business.country,
+            city: props.business.city,
+            economic_activity: props.business.economic_activity,
+            imgSrc: props.business.imgSrc,
+            errors: { error: '' }
+        });
+        setLoaded(3);
+    }
 
     const onChange = (key: String, value: any) => {
         setState({ ...state, [key]: value });

@@ -9,6 +9,7 @@ export const Patch = (data: BusinessProfile) => {
     return async (dispatch: Dispatch, getState: () => DefaultState) => {
         const state = getState();
         const url = `${config.server_url}/api/business/${state.auth.profile.id}`;
+        console.log(JSON.stringify(data));
         const response = await fetch(url, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },

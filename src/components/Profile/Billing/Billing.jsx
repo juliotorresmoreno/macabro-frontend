@@ -1,7 +1,7 @@
 
 
 import React, { Fragment } from 'react';
-import Pagination from '../Pagination';
+import Pagination from '../../Pagination';
 import './billing.css'
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -15,7 +15,7 @@ const Billing = () => {
         <Fragment>
             <div id="billing">
                 <div id="content-table">
-                    <Table striped>
+                    <Table striped bordered>
                         <thead>
                             <tr>
                                 <th>Mes</th>

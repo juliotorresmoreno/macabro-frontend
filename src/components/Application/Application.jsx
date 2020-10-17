@@ -3,9 +3,9 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route, Redirect as RedirectC } from 'react-router-dom';
 import Landing from '../../pages/Landing';
 import Terms from '../../pages/Terms';
+import Services from '../../pages/Services';
 import Privacy from '../../pages/Privacy';
 import Profile from '../../pages/Profile';
-import Subscription from '../../pages/Subscription';
 import NotFound from '../../pages/NotFound';
 import store from '../../store';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
@@ -33,9 +33,9 @@ function App() {
                     <PrivateRoute path="/profile"
                         unauthorizedComponent={Landing}
                         component={Profile} exact={false} />
-                    <PrivateRoute path="/subscription"
+                    <PrivateRoute path="/services"
                         unauthorizedComponent={Landing}
-                        component={Subscription} exact />
+                        component={Services} exact={false} />
 
                     <PrivateRoute path="/"
                         unauthorizedComponent={Landing}

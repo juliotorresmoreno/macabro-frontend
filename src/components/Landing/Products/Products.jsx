@@ -6,8 +6,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Button } from 'reactstrap';
-import { DefaultState, AuthState } from '../../store/state';
-import { SignUpOpenForm, Redirect } from '../../actions/auth';
+import { DefaultState, AuthState } from '../../../store/state';
+import { SignUpOpenForm, Redirect } from '../../../actions/auth';
 
 const mapState = (state: DefaultState) => ({
     auth: state.auth
@@ -26,14 +26,14 @@ const Product = (props: ProductProps) => {
         <div className="card-deck mb-3 text-center">
             <div className="card mb-4 shadow-sm">
                 <div className="card-header">
-                    <h4 className="my-0 font-weight-normal">Individual</h4>
+                    <h4 className="my-0 font-weight-normal">Basico</h4>
                 </div>
                 <div className="card-body">
                     <h1 className="card-title pricing-card-title">
-                        $20/<small className="text-muted">mes</small>
+                        $17/<small className="text-muted">mes</small>
                     </h1>
                     <ul className="list-unstyled mt-3 mb-4">
-                        <li>1 usuario incluido</li>
+                        <li>10 usuarios incluido</li>
                         <li>5 GB</li>
                         <li>Soporte via email</li>
                         <li>Acceso a help center</li>
@@ -45,14 +45,14 @@ const Product = (props: ProductProps) => {
             </div>
             <div className="card mb-4 shadow-sm">
                 <div className="card-header">
-                    <h4 className="my-0 font-weight-normal">Pequeña empresa</h4>
+                    <h4 className="my-0 font-weight-normal">Compartido</h4>
                 </div>
                 <div className="card-body">
                     <h1 className="card-title pricing-card-title">
-                        $200/<small className="text-muted">mes</small>
+                        $100/<small className="text-muted">mes</small>
                     </h1>
                     <ul className="list-unstyled mt-3 mb-4">
-                        <li>20 usuarios incluido</li>
+                        <li>50 usuarios incluidos</li>
                         <li>20 GB</li>
                         <li>Soporte via email</li>
                         <li>Acceso a help center</li>
@@ -64,7 +64,7 @@ const Product = (props: ProductProps) => {
             </div>
             <div className="card mb-4 shadow-sm">
                 <div className="card-header">
-                    <h4 className="my-0 font-weight-normal">Premium</h4>
+                    <h4 className="my-0 font-weight-normal">Dedicado</h4>
                 </div>
                 <div className="card-body">
                     <h1 className="card-title pricing-card-title">
