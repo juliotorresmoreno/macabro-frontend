@@ -3,11 +3,11 @@
 
 import React, { Fragment } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
-import FormPaymentMethods, { Context, validate, IContextState } from '../Forms/PaymentMethods'
+import FormPaymentMethods, { Context, validate, IContextState } from '../../Forms/PaymentMethods'
 import { useState } from 'react';
-import store from '../../store';
-import * as paymentMethods from '../../actions/payment-methods';
-import { parseError } from '../../helper';
+import store from '../../../store';
+import * as paymentMethods from '../../../actions/payment-methods';
+import { parseError } from '../../../helper';
 
 interface AppendPaymentMethodsProps {
     isOpen: Boolean,

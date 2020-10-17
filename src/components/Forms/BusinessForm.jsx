@@ -62,6 +62,7 @@ class Business extends React.PureComponent<BusinessProps> {
     }
 
     render() {
+        console.log(this.context);
         return (
             <Row>
                 <Col>

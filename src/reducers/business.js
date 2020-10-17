@@ -18,6 +18,7 @@ const defaultState: BusinessProfile = {
 
 export default createReducer(defaultState, {
     [businessTypes.Get]: function (state, action: Action) {
-        Object.assign(state, action.payload)
+        const payload: BusinessProfile = action.payload;
+        Object.assign(state, payload);
     }
 });

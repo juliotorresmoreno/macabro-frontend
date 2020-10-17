@@ -40,6 +40,11 @@ const NavBarAuthenticate = (props: NavBarAuthenticateProps) => {
                     <Nav className="mr-auto" navbar />
                     <Nav className="mr-right nav-masthead" navbar>
                         <NavItem>
+                            <Link className="nav-link" to="/services">
+                                Servicios
+                            </Link>
+                        </NavItem>
+                        <NavItem>
                             <Link className="nav-link" to="/profile">
                                 Perfil
                             </Link>

@@ -3,15 +3,15 @@
 // @flow
 
 import React from 'react';
-import ProfileForm, { Context, validate } from '../Forms/ProfileForm';
-import * as profile from '../../actions/profile';
-import store from '../../store';
+import ProfileForm, { Context, validate } from '../../Forms/ProfileForm';
+import * as profile from '../../../actions/profile';
+import store from '../../../store';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { DefaultState } from '../../store/state';
-import { UserProfile } from '../../models';
-import { parseError } from '../../helper';
+import { DefaultState } from '../../../store/state';
+import { UserProfile } from '../../../models';
+import { parseError } from '../../../helper';
 
 const mapProps = (state: DefaultState) => ({
     profile: state.auth.profile
@@ -24,6 +24,9 @@ interface ProfileProps {
 
 const from_date = (date) => {
     var t = new Date(Date.parse(date));
+    if (typeof t.toJSON !== 'function') {
+        return '';
+    }
     return t.toJSON().substr(0, 10);
 }
 
@@ -58,12 +61,10 @@ const Profile = (props: ProfileProps) => {
             delete data.errors;
             var to_date = (date): Date => {
                 var t = new Date(Date.parse(date));
-                t.setSeconds(t.getSeconds() + t.getTimezoneOffset());
-                console.log(date, t.toJSON());
                 return t;
             }
-            data.date_birth = to_date(data.date_birth).toJSON();
-            data.expedite = to_date(data.expedite).toJSON();
+            data.date_birth = to_date(data.date_birth).toISOString();
+            data.expedite = to_date(data.expedite).toISOString();
             
             await store.dispatch(profile.Patch(data));
             setState({ ...state, errors: { error: '' } });

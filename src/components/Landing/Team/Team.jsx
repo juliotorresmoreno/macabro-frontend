@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Row, Col } from 'reactstrap';
-import Media from '../Media';
+import Media from '../../Media';
 
 const people = [
     {
