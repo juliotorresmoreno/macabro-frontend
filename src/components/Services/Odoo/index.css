@@ -1,0 +1,15 @@
+#odoo-table thead tr th:nth-child(1) {
+    width: 40px;
+}
+
+#odoo-table thead tr th:nth-child(3) {
+    width: 100px;
+}
+
+#odoo-table thead tr th:nth-child(4) {
+    width: 100px;
+}
+
+#odoo-table tbody tr :hover {
+    cursor: pointer;
+}

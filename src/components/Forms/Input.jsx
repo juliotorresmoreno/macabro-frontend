@@ -7,10 +7,10 @@ import { Input as InputBS, Label, Alert, FormGroup } from "reactstrap";
 
 interface InputProps {
     control: FormControlComponent,
-    name: String,
-    title: String,
-    type: String,
-    error: String,
+    name: string,
+    title: string,
+    type: string,
+    error: string,
     children: React.ReactChildren,
     onChange: (e: React.ChangeEvent<React.InputHTMLAttributes>) => void,
     onKeyPress: (event: React.KeyboardEvent<HTMLInputElement>) => void,

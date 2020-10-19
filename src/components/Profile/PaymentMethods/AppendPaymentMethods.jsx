@@ -36,7 +36,7 @@ const AppendPaymentMethods = (props: AppendPaymentMethodsProps) => {
             error: ''
         }
     });
-    const onChange = (key: String, value: any) => {
+    const onChange = (key: string, value: any) => {
         setState({ ...state, [key]: value })
     };
     const onSubmit = async () => {

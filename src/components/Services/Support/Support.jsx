@@ -1,7 +1,10 @@
 
 
 import React, { Fragment } from 'react';
-import { Card, CardBody, Button } from 'reactstrap';
+import { Button, Col, Row } from 'reactstrap';
+import Table from './Table';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 interface SupportProps {
 
@@ -10,15 +13,15 @@ interface SupportProps {
 const Support: React.FC<SupportProps> = () => {
     return (
         <Fragment>
-            <Card>
-                <CardBody>
-                    <Button color='primary'>Nuevo</Button>
-
-                    <br />
-                    <br />
-                    <textarea></textarea>
-                </CardBody>
-            </Card>
+            <Row>
+                <Col>
+                    <Button color='primary'>
+                        <FontAwesomeIcon icon={faPlus} />
+                    </Button>
+                </Col>
+            </Row>
+            <br />
+            <Table />
         </Fragment>
     )
 }

@@ -3,34 +3,56 @@
 // @flow
 
 import React from 'react';
-import { LaunchContext } from './context';
+import { EditorContext, LaunchContext } from './context';
 import { useContext } from 'react';
 import { Col, Row, Card, CardBody, Button } from 'reactstrap';
 import { useState } from 'react';
-import PlanDetailsForm from '../../Forms/PlanDetailsForm';
+import PlanDetailsForm, { validate } from '../../Forms/PlanDetailsForm';
+import * as instances from '../../../actions/instances';
+import { connect } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { withRouter, RouteChildrenProps } from 'react-router-dom';
 
-interface PlanDetailsProps {
-
+interface PlanDetailsProps extends RouteChildrenProps {
+    dispatch: ThunkDispatch;
+    edit: boolean;
 }
 
-const PlanDetails: React.FC<PlanDetailsProps> = () => {
-    const context = useContext(LaunchContext);
+const PlanDetails: React.FC<PlanDetailsProps> = (props) => {
+    const launchContext = useContext(LaunchContext);
+    const editorContext = useContext(EditorContext);
+    const context = props.edit ? editorContext : launchContext;
     const [state, setState] = useState({
-        isCloud: context.plan !== 1,
-        type: 3,
-        replicas: 1,
-        autoscaling: 0,
-        allow_deletion: 0,
-        backup_periodicity: 24,
-        url: '',
-        username: 'admin',
-        password: 'admin',
+        is_cloud: context.is_cloud,
+        name: context.name,
+        type: context.type,
+        replicas: context.replicas,
+        autoscaling: context.autoscaling,
+        allow_deletion: context.allow_deletion,
+        backup_periodicity: context.backup_periodicity,
+        url: context.url,
+        username: context.username,
+        password: context.password,
     });
+    const [errors, setErrors] = useState({});
     const onChange = (name, value) => {
         setState({ ...state, [name]: value })
     }
-    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const _errors = validate(state);
+        if (_errors[0] === false) {
+            setErrors(_errors[1]);
+            return;
+        }
+        if (props.edit) {
+            await props.dispatch(instances.Post(context.id, state));
+        } else {
+            await props.dispatch(instances.Put(state));
+        }
+        await props.dispatch(instances.Get());
+
+        props.history.push('/services/odoo')
     }
     return (
         <>
@@ -40,7 +62,8 @@ const PlanDetails: React.FC<PlanDetailsProps> = () => {
                         <CardBody>
                             <PlanDetailsForm
                                 onChange={onChange}
-                                {...state} />
+                                {...state}
+                                errors={errors} />
                             <Button
                                 onClick={onSubmit}
                                 color='primary'>
@@ -61,4 +84,4 @@ const PlanDetails: React.FC<PlanDetailsProps> = () => {
     )
 }
 
-export default PlanDetails;
+export default connect()(withRouter(PlanDetails));

@@ -8,7 +8,7 @@ import { PaymentMethod } from '../../models';
 import { InputKeyPressValidator } from '../../helper';
 
 interface IErrors extends PaymentMethod {
-    error: String
+    error: string
 }
 
 export interface IContextState extends PaymentMethod {
@@ -18,18 +18,18 @@ export interface IContextState extends PaymentMethod {
 export const Context = createContext<IContextState>({});
 
 interface PaymentMethodsProps {
-    onChange: (key: String, value: any) => void
+    onChange: (key: string, value: any) => void
 }
 
 interface RenderErrorProps {
-    msg: String
+    msg: string
 }
 
 const RenderError = ({ msg }: RenderErrorProps) => {
     return msg ? <><br /><Alert color='danger'>{msg}</Alert></> : false
 }
 
-const formatNumber = (number: String) => {
+const formatNumber = (number: string) => {
     let n = parseInt(number.length / 4);
     let s = [];
     if (n === 0) return number

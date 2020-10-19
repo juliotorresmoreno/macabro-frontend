@@ -6,7 +6,7 @@ import { Row, Col } from 'reactstrap';
 import App from '../App';
 
 interface CategoryProps {
-    title: String;
+    title: string;
     apps: []
 }
 

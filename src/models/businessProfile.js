@@ -4,14 +4,14 @@
 export interface BusinessProfile {
     id: Number,
     user_id: Number,
-    name: String,
-    nit: String,
-    legal_representative: String,
-    website: String,
-    address: String,
-    country: String,
-    city: String,
-    economic_activity: String,
-    imgSrc: String
+    name: string,
+    nit: string,
+    legal_representative: string,
+    website: string,
+    address: string,
+    country: string,
+    city: string,
+    economic_activity: string,
+    imgSrc: string
 }
 

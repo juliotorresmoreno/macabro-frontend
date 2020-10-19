@@ -24,7 +24,7 @@ interface IContextState {
     linkedin: '',
     errors: {
         error: '',
-        [x: String]: String
+        [x: string]: string
     }
 }
 
@@ -33,7 +33,7 @@ export const Context = createContext<IContextState>();
 interface ProfileFormProps {
     countries: any[],
     onSubmit: (state: any) => void,
-    onChange: (key: String, value: String) => void
+    onChange: (key: string, value: string) => void
 }
 
 const mapProps = (state: DefaultState) => ({

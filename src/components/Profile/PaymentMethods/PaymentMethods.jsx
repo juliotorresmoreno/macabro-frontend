@@ -57,7 +57,7 @@ const PaymentMethods = (props: PaymentMethodsProps) => {
             })
             .catch((err) => {
                 let errors = parseError(err);
-                setError(errors.error.toString());
+                setError(errors.error.tostring());
             });
     }
     const toggle = () => setIsOpen(!isOpen);

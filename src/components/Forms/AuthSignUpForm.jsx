@@ -6,12 +6,12 @@ import { emailValid, passwordValid, nameValid, usernameValid } from '../Forms/va
 import { Link } from 'react-router-dom';
 
 export class SignUpFormData {
-    email: String;
-    name: String;
-    lastname: String;
-    username: String;
-    password: String;
-    password_confirmation: String;
+    email: string;
+    name: string;
+    lastname: string;
+    username: string;
+    password: string;
+    password_confirmation: string;
     terms: Boolean;
 
     errors: {

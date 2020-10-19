@@ -29,7 +29,7 @@ const mapProps = (state: DefaultState) => ({
 });
 
 interface NavBarUnauthenticateProps {
-    action: String;
+    action: string;
     dispatch: Dispatch
 }
 

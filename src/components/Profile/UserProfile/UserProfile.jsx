@@ -48,7 +48,7 @@ const Profile = (props: ProfileProps) => {
             error: ''
         }
     });
-    const onChange = (key: String, value: String) => {
+    const onChange = (key: string, value: string) => {
         setState({ ...state, [key]: value });
     }
     const onSubmit = async () => {
@@ -63,8 +63,8 @@ const Profile = (props: ProfileProps) => {
                 var t = new Date(Date.parse(date));
                 return t;
             }
-            data.date_birth = to_date(data.date_birth).toISOString();
-            data.expedite = to_date(data.expedite).toISOString();
+            data.date_birth = to_date(data.date_birth).toISOstring();
+            data.expedite = to_date(data.expedite).toISOstring();
             
             await store.dispatch(profile.Patch(data));
             setState({ ...state, errors: { error: '' } });

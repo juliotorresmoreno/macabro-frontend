@@ -2,8 +2,8 @@
 // @flow
 
 export interface FormControlComponent {
-    [name: String]: any,
-    errors: { [x: String]: String, error: String },
+    [name: string]: any,
+    errors: { [x: string]: string, error: string },
     reset: () => {},
     validate: () => {}
 }
@@ -36,7 +36,7 @@ class FormControl implements FormControlComponent {
         return v;
     }
 
-    setValue(field: String, value: String | Number) {
+    setValue(field: string, value: string | Number) {
         this.state[field] = value;
         if (this.state.errors[field]) {
             this.validate();

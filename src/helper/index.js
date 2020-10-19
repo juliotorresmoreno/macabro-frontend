@@ -1,11 +1,11 @@
 
 // @flow
 
-export function parseError(err: String) {
+export function parseError(err: string) {
     if (/^[a-z][a-z0-9]+:/.test(err)) {
         console.log(err);
         var e = {};
-        err.split(";").forEach((x: String) => {
+        err.split(";").forEach((x: string) => {
             let s = x.split(": ");
             e[s[0].toLowerCase()] = s[1];
         });

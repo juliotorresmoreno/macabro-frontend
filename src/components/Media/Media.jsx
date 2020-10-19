@@ -3,9 +3,9 @@ import { Media as MediaBS } from 'reactstrap';
 
 
 interface MediaProps {
-    title: String;
+    title: string;
     content: React.ReactElement;
-    img: String
+    img: string
 }
 
 const Media = (props: MediaProps) => {

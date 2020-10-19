@@ -2,7 +2,6 @@
 
 import React, { Fragment } from 'react';
 import NavBarAuthenticate from '../../components/NavBar/NavBarAuthenticate';
-//import Footer from '../../components/Footer';
 import UserProfile from '../../components/Profile/UserProfile';
 import { Container, Row, Col, ListGroup } from 'reactstrap';
 import { Link, withRouter, RouteComponentProps, Switch, Route } from 'react-router-dom';
@@ -59,7 +58,8 @@ const Profile = (props: ProfileProps) => {
                                 className={`${className} ${active[1]}`}>
                                 Empresa
                             </Link>
-                            <Link to="/profile/billing"
+                            {
+                            /*<Link to="/profile/billing"
                                 className={`${className} ${active[2]}`}>
                                 Facturación
                             </Link>
@@ -67,6 +67,7 @@ const Profile = (props: ProfileProps) => {
                                 className={`${className} ${active[3]}`}>
                                 Metodos de pago
                             </Link>
+                            */}
                             {/*<Link to="/profile/statistics"
                                 className={`${className} ${active[4]}`}>
                                 Estadisticas

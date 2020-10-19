@@ -61,7 +61,7 @@ const Business = (props: BusinessProps) => {
         setLoaded(3);
     }
 
-    const onChange = (key: String, value: any) => {
+    const onChange = (key: string, value: any) => {
         setState({ ...state, [key]: value });
     }
 

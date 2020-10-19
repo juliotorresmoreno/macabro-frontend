@@ -13,7 +13,7 @@ const mapProps = (state: DefaultState) => ({
 });
 
 interface RedirectProps {
-    redirect: String,
+    redirect: string,
     dispatch: Dispatch
 }
 

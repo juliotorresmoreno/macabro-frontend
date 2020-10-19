@@ -12,7 +12,7 @@ const inputStyle: CSSProperties = {
 }
 
 interface InputImageProps {
-    src: String,
+    src: string,
     onChange: (value: any) => void
 }
 

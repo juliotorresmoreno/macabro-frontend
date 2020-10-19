@@ -32,7 +32,7 @@ export const Get = () => {
             credentials: 'include',
             mode: 'cors'
         });
-        const data: UserProfile | { message: String } = await response.json();
+        const data: UserProfile | { message: string } = await response.json();
         if (!response.ok) {
             if (response.status === 401)
                 return dispatch(_LogOut());

@@ -9,8 +9,8 @@ import { UserProfile, UserProfileWithPassword } from '../models';
 import config from '../config';
 
 export interface Credential {
-    username: String,
-    password: String
+    username: string,
+    password: string
 }
 
 export interface ActionSignIn extends Action {
@@ -30,7 +30,7 @@ export const SignIn = (c: Credential) => {
             credentials: 'include',
             body: JSON.stringify(c)
         });
-        const data: UserProfileWithPassword | { message: String } = await response.json();
+        const data: UserProfileWithPassword | { message: string } = await response.json();
         if (!response.ok) {
             throw new Error(data.message);
         }
@@ -55,7 +55,7 @@ export const SignUp = (user: UserProfileWithPassword) => {
             credentials: 'include',
             body: JSON.stringify(user)
         });
-        const data: UserProfileWithPassword | { message: String } = await response.json();
+        const data: UserProfileWithPassword | { message: string } = await response.json();
         if (!response.ok) {
             throw new Error(data.message);
         }
@@ -68,9 +68,9 @@ export const SignUpOpenForm = createAction(authTypes.ActionSignUpOpenForm);
 export const CloseForm = createAction(authTypes.CloseForm);
 
 export interface ActionRedirect extends Action {
-    payload: String
+    payload: string
 }
-export const Redirect: (url: String) => ActionRedirect = createAction(authTypes.Redirect);
+export const Redirect: (url: string) => ActionRedirect = createAction(authTypes.Redirect);
 
 export const LogOut = createAction(authTypes.LogOut);
 

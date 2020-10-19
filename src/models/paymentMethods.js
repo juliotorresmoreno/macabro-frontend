@@ -3,13 +3,13 @@
 
 export interface PaymentMethod {
     id: Number,
-    name: String,
-    number: String,
-    alias_number: String,
-    type: String,
+    name: string,
+    number: string,
+    alias_number: string,
+    type: string,
     default: Number,
-    expiration_month: String,
-    expiration_year: String,
-    cvv: String
+    expiration_month: string,
+    expiration_year: string,
+    cvv: string
 }
 

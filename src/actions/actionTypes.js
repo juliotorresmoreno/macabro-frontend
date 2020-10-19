@@ -27,8 +27,15 @@ export const businessTypes = {
     Get: `${_business}/Get`
 }
 
-
 const _paymentMethods = '@paymentMethods';
 export const paymentMethodsTypes = {
     Get: `${_paymentMethods}/Get`
+}
+
+const _instance = '@instances';
+export const instanceTypes = {
+    Get: `${_instance}/Get`,
+    Post: `${_instance}/Post`,
+    Put: `${_instance}/Put`,
+    Delete: `${_instance}/Delete`
 }

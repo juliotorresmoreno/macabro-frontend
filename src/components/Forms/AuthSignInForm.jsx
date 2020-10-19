@@ -5,8 +5,8 @@ import FormControl from './FormControl';
 import { emailValid, passwordValid } from '../Forms/validator';
 
 export class SignInFormData {
-    email: String;
-    password: String;
+    email: string;
+    password: string;
     errors: { email: '', password: '' } = {}
 
     constructor() {

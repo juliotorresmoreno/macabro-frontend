@@ -4,8 +4,8 @@ import { countryTypes } from './actionTypes';
 import { Dispatch } from 'redux';
 
 interface Country {
-    alpha2Code: String,
-    name: String
+    alpha2Code: string,
+    name: string
 }
 
 type Countries = Array<Country>;

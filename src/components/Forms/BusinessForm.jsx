@@ -15,7 +15,7 @@ import { progresiveNameValid } from "./validator";
 export interface IContextState extends BusinessProfile {
     errors: {
         error: '',
-        [x: String]: String
+        [x: string]: string
     }
 }
 
@@ -29,7 +29,7 @@ const mapProps = (state: DefaultState) => ({
 
 interface BusinessProps {
     countries: any[],
-    onChange: (key: String, value: any) => void,
+    onChange: (key: string, value: any) => void,
     onSubmit: () => void
 }
 

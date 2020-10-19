@@ -4,9 +4,9 @@
 import React from 'react';
 
 interface AppProps {
-    logo: String;
-    pageURL: String;
-    name: String;
+    logo: string;
+    pageURL: string;
+    name: string;
 }
 
 const App = (props: AppProps) => {
